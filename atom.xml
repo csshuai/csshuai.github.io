@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://csshuai.github.com/"/>
-  <updated>2016-03-24T01:36:00.000Z</updated>
+  <updated>2016-04-11T07:36:14.000Z</updated>
   <id>http://csshuai.github.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://csshuai.github.com/2016/03/21/android-tech-share-meeting-2016-03-21/"/>
     <id>http://csshuai.github.com/2016/03/21/android-tech-share-meeting-2016-03-21/</id>
     <published>2016-03-21T03:03:33.000Z</published>
-    <updated>2016-03-24T01:36:00.000Z</updated>
+    <updated>2016-04-11T07:36:14.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;为什么要推倒重来&quot;&gt;&lt;a href=&quot;#为什么要推倒重来&quot; class=&quot;headerlink&quot; title=&quot;为什么要推倒重来&quot;&gt;&lt;/a&gt;为什么要推倒重来&lt;/h1&gt;&lt;p&gt;以前的框架有些坑&lt;/p&gt;
 &lt;ol&gt;
@@ -44,6 +44,7 @@
 &lt;h2 id=&quot;Eventbus-能使用的地方&quot;&gt;&lt;a href=&quot;#Eventbus-能使用的地方&quot; class=&quot;headerlink&quot; title=&quot;Eventbus 能使用的地方&quot;&gt;&lt;/a&gt;Eventbus 能使用的地方&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;只用来发送服务的消息, 一定程度上代替广播的作用&lt;/li&gt;
 &lt;li&gt;其他情况用 Eventbus 需要讨论&lt;/li&gt;
+&lt;li&gt;Eventbus 接收到的消息用 getHandler() 发送出去再次处理, 防止空指针&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&quot;StrictMode&quot;&gt;&lt;a href=&quot;#StrictMode&quot; class=&quot;headerlink&quot; title=&quot;StrictMode&quot;&gt;&lt;/a&gt;StrictMode&lt;/h1&gt;&lt;h1 id=&quot;PausedHandler&quot;&gt;&lt;a href=&quot;#PausedHandler&quot; class=&quot;headerlink&quot; title=&quot;PausedHandler&quot;&gt;&lt;/a&gt;PausedHandler&lt;/h1&gt;&lt;h1 id=&quot;RxJava&quot;&gt;&lt;a href=&quot;#RxJava&quot; class=&quot;headerlink&quot; title=&quot;RxJava&quot;&gt;&lt;/a&gt;RxJava&lt;/h1&gt;&lt;h1 id=&quot;Retrofit2&quot;&gt;&lt;a href=&quot;#Retrofit2&quot; class=&quot;headerlink&quot; title=&quot;Retrofit2&quot;&gt;&lt;/a&gt;Retrofit2&lt;/h1&gt;&lt;h1 id=&quot;proguard-annotations&quot;&gt;&lt;a href=&quot;#proguard-annotations&quot; class=&quot;headerlink&quot; title=&quot;proguard-annotations&quot;&gt;&lt;/a&gt;proguard-annotations&lt;/h1&gt;&lt;h1 id=&quot;代码规范-提交到-git-的代码必须符合以下要求&quot;&gt;&lt;a href=&quot;#代码规范-提交到-git-的代码必须符合以下要求&quot; class=&quot;headerlink&quot; title=&quot;代码规范(提交到 git 的代码必须符合以下要求)&quot;&gt;&lt;/a&gt;代码规范(提交到 git 的代码必须符合以下要求)&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;注释的代码块必须删除, 并在 Commit Message 中做必要的说明 &lt;/li&gt;
@@ -53,12 +54,74 @@
 &lt;li&gt;重载的方法放在一起, 且按照生命周期顺序&lt;/li&gt;
 &lt;li&gt;私有方法放在最后&lt;/li&gt;
 &lt;li&gt;写 api 时将文档连接放到注释中&lt;/li&gt;
-&lt;li&gt;Adapter 多个 Onclick 事件只需要一个 OnClickListener &lt;/li&gt;
+&lt;li&gt;Adapter 多个 Onclick 事件只需要一个 OnClickLi\stener &lt;/li&gt;
+&lt;li&gt;代码不要有太多空格(方法之间只要一个空格)&lt;/li&gt;
+&lt;li&gt;共用 value 才放入 values 文件夹, 否则直接在代码里写&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;methodA&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ..... &lt;span class=&quot;comment&quot;&gt;// 功能模块&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ..... &lt;span class=&quot;comment&quot;&gt;// 功能模块&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;methodB&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ..... &lt;span class=&quot;comment&quot;&gt;// 功能模块&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;工作规范&quot;&gt;&lt;a href=&quot;#工作规范&quot; class=&quot;headerlink&quot; title=&quot;工作规范&quot;&gt;&lt;/a&gt;工作规范&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;下班前提交代码&lt;/li&gt;
+&lt;li&gt;提交的代码必须确认 app 能跑起来&lt;/li&gt;
+&lt;li&gt;报告量化工作&lt;br&gt;量化的目的: 找到短板, 寻找解决方案, 提升自身价值.&lt;ol&gt;
+&lt;li&gt;总共有 xx 个 bug, 其中 xx 个是需求不清晰, xx 个是没理解需求, xx 个编码问题. 修复xx个 bug. 怎么样减少 bug?&lt;/li&gt;
+&lt;li&gt;开发了2个功能, 功能1开发进度 xx%, 花费时间多少. 功能2开发进度 xx%, 花费时间多少. 有什么心得体会?&lt;/li&gt;
+&lt;li&gt;代码检查: xx 个功能 bug, xx 个风格不符, xx 性能问题. 怎么样减少问题?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;上下班前确认需求设计的变更&lt;/li&gt;
+&lt;li&gt;2-3人交叉工作&lt;/li&gt;
+&lt;li&gt;下班前半小时: 提交代码, 总结今天的得失, 思考怎么样进行改进, 有收获向大家分享&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&quot;其他问题&quot;&gt;&lt;a href=&quot;#其他问题&quot; class=&quot;headerlink&quot; title=&quot;其他问题&quot;&gt;&lt;/a&gt;其他问题&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;网络请求提交数据时不要启用重试机制??&lt;/li&gt;
+&lt;li&gt;mipmap 只是用存放 ic_launcher&lt;/li&gt;
+&lt;li&gt;xml 图形资源放入 drawable 文件夹&lt;/li&gt;
+&lt;li&gt;删除未使用的资源: 右键 Refactor -&amp;gt; Remove Unused Resources…&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&quot;框架讲解&quot;&gt;&lt;a href=&quot;#框架讲解&quot; class=&quot;headerlink&quot; title=&quot;框架讲解&quot;&gt;&lt;/a&gt;框架讲解&lt;/h1&gt;</content>
+&lt;h1 id=&quot;新版本注意事项&quot;&gt;&lt;a href=&quot;#新版本注意事项&quot; class=&quot;headerlink&quot; title=&quot;新版本注意事项&quot;&gt;&lt;/a&gt;新版本注意事项&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;色值: 共用色值写入 colors.xml, 不共用色值直接写在代码中&lt;/li&gt;
+&lt;li&gt;尺寸值: 共用尺寸值写入 dimens.xml, 不共用尺寸值接写在代码中&lt;/li&gt;
+&lt;li&gt;以上如果需要做适配, 可以写在 xml 中&lt;/li&gt;
+&lt;li&gt;TextView 和 EditView 不要设置 cursorDrawable. 如果是默认字体色(#333)和 Hits 色(#999), 也不要设置色值&lt;/li&gt;
+&lt;li&gt;图片资源的问题: 优先从 svn 中复制图片, 并按#资源命名规则 重新命名 (不要从原项目中复制)&lt;/li&gt;
+&lt;li&gt;自定义的一些辅助类 bean 不要放入 bean 包中, bean 包中全部都是服务端业务需要的类, bean 中不要加入非必要(客户端不用)的字段&lt;/li&gt;
+&lt;li&gt;使用图片和颜色状态来代替在代码中动态设置&lt;/li&gt;
+&lt;li&gt;glide.with(xxx), 使用范围最小的参数 &lt;/li&gt;
+&lt;li&gt;输入法统一使用 resize 的方式&lt;/li&gt;
+&lt;li&gt;分模块. 例如充电模块, 有 N 多的功能就写在一个 Fragment 中, 要分成多个 Fragment&lt;/li&gt;
+&lt;li&gt;emojicon 使用 EmojiconHandler 去处理 Emoji 表情, 不要直接使用 EmojiconEditText 和 EmojiconTextView&lt;/li&gt;
+&lt;li&gt;使用 TabLayout, 不要使用 UnderlineTabPageIndicator&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/theone10211024/article/details/50435325&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Rxjava 使用场景&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;recyclerview 不要用隐藏的方式, 要重写 getItemCount 方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;列表播放视频使用 &lt;a href=&quot;https://github.com/danylovolokh/VideoPlayerManager&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;VideoPlayerManager&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;框架讲解&quot;&gt;&lt;a href=&quot;#框架讲解&quot; class=&quot;headerlink&quot; title=&quot;框架讲解&quot;&gt;&lt;/a&gt;框架讲解&lt;/h1&gt;&lt;h1 id=&quot;资源命名规则&quot;&gt;&lt;a href=&quot;#资源命名规则&quot; class=&quot;headerlink&quot; title=&quot;资源命名规则&quot;&gt;&lt;/a&gt;资源命名规则&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&amp;lt;类型…&amp;gt;_&amp;lt;限定词…&amp;gt;, 在能表达意思的基础上, 越短越好&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;资源文件名只能使用小写字母数字下划线(a-z0-9_), 且只能以小写字母开头&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;layout|menu 命名&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Fragment 的 onCreateContentView 中的 layout 命名: content&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;li&gt;Fragment 的 onViewCreating 中的 layout 命名: fragment&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;li&gt;Activity 的 layout 命名: activity&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;li&gt;Adapter 的 layout 命名: item&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;li&gt;Dialog 的 layout 命名: dialog&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;drawable 命名&lt;ol&gt;
+&lt;li&gt;图标: ic&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;   例如: ic_toolbar_back_selector&lt;/li&gt;
+&lt;li&gt;背景: bg&lt;em&gt;&amp;lt;类型…&amp;gt;&lt;/em&gt;&amp;lt;限定词…&amp;gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;color 命名&lt;/li&gt;
+&lt;li&gt;value 命名&lt;ol&gt;
+&lt;li&gt;某个库用的 Value 单独给放入一个文件中   例如: values_tab_page_indicator&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
     
     <summary type="html">
     

@@ -31,7 +31,7 @@ Library 框架的坑: 很容易就会发生空指针
 Fragment
 获取数据的请求放入 onCreate(…) 方法中
 给 Fragment 发送数据使用 Fragment.se">
-<meta property="og:updated_time" content="2016-03-24T01:36:00.000Z">
+<meta property="og:updated_time" content="2016-04-11T07:36:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分享会-2016-03-21">
 <meta name="twitter:description" content="为什么要推倒重来以前的框架有些坑
@@ -325,6 +325,7 @@ Fragment
 <h2 id="Eventbus-能使用的地方"><a href="#Eventbus-能使用的地方" class="headerlink" title="Eventbus 能使用的地方"></a>Eventbus 能使用的地方</h2><ul>
 <li>只用来发送服务的消息, 一定程度上代替广播的作用</li>
 <li>其他情况用 Eventbus 需要讨论</li>
+<li>Eventbus 接收到的消息用 getHandler() 发送出去再次处理, 防止空指针</li>
 </ul>
 <h1 id="StrictMode"><a href="#StrictMode" class="headerlink" title="StrictMode"></a>StrictMode</h1><h1 id="PausedHandler"><a href="#PausedHandler" class="headerlink" title="PausedHandler"></a>PausedHandler</h1><h1 id="RxJava"><a href="#RxJava" class="headerlink" title="RxJava"></a>RxJava</h1><h1 id="Retrofit2"><a href="#Retrofit2" class="headerlink" title="Retrofit2"></a>Retrofit2</h1><h1 id="proguard-annotations"><a href="#proguard-annotations" class="headerlink" title="proguard-annotations"></a>proguard-annotations</h1><h1 id="代码规范-提交到-git-的代码必须符合以下要求"><a href="#代码规范-提交到-git-的代码必须符合以下要求" class="headerlink" title="代码规范(提交到 git 的代码必须符合以下要求)"></a>代码规范(提交到 git 的代码必须符合以下要求)</h1><ul>
 <li>注释的代码块必须删除, 并在 Commit Message 中做必要的说明 </li>
@@ -334,12 +335,74 @@ Fragment
 <li>重载的方法放在一起, 且按照生命周期顺序</li>
 <li>私有方法放在最后</li>
 <li>写 api 时将文档连接放到注释中</li>
-<li>Adapter 多个 Onclick 事件只需要一个 OnClickListener </li>
+<li>Adapter 多个 Onclick 事件只需要一个 OnClickLi\stener </li>
+<li>代码不要有太多空格(方法之间只要一个空格)</li>
+<li>共用 value 才放入 values 文件夹, 否则直接在代码里写<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ..... <span class="comment">// 功能模块</span></span><br><span class="line">    </span><br><span class="line">    ..... <span class="comment">// 功能模块</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ..... <span class="comment">// 功能模块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="工作规范"><a href="#工作规范" class="headerlink" title="工作规范"></a>工作规范</h1><ul>
+<li>下班前提交代码</li>
+<li>提交的代码必须确认 app 能跑起来</li>
+<li>报告量化工作<br>量化的目的: 找到短板, 寻找解决方案, 提升自身价值.<ol>
+<li>总共有 xx 个 bug, 其中 xx 个是需求不清晰, xx 个是没理解需求, xx 个编码问题. 修复xx个 bug. 怎么样减少 bug?</li>
+<li>开发了2个功能, 功能1开发进度 xx%, 花费时间多少. 功能2开发进度 xx%, 花费时间多少. 有什么心得体会?</li>
+<li>代码检查: xx 个功能 bug, xx 个风格不符, xx 性能问题. 怎么样减少问题?</li>
+</ol>
+</li>
+<li>上下班前确认需求设计的变更</li>
+<li>2-3人交叉工作</li>
+<li>下班前半小时: 提交代码, 总结今天的得失, 思考怎么样进行改进, 有收获向大家分享</li>
 </ul>
 <h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><ul>
 <li>网络请求提交数据时不要启用重试机制??</li>
+<li>mipmap 只是用存放 ic_launcher</li>
+<li>xml 图形资源放入 drawable 文件夹</li>
+<li>删除未使用的资源: 右键 Refactor -&gt; Remove Unused Resources…</li>
 </ul>
-<h1 id="框架讲解"><a href="#框架讲解" class="headerlink" title="框架讲解"></a>框架讲解</h1>
+<h1 id="新版本注意事项"><a href="#新版本注意事项" class="headerlink" title="新版本注意事项"></a>新版本注意事项</h1><ul>
+<li>色值: 共用色值写入 colors.xml, 不共用色值直接写在代码中</li>
+<li>尺寸值: 共用尺寸值写入 dimens.xml, 不共用尺寸值接写在代码中</li>
+<li>以上如果需要做适配, 可以写在 xml 中</li>
+<li>TextView 和 EditView 不要设置 cursorDrawable. 如果是默认字体色(#333)和 Hits 色(#999), 也不要设置色值</li>
+<li>图片资源的问题: 优先从 svn 中复制图片, 并按#资源命名规则 重新命名 (不要从原项目中复制)</li>
+<li>自定义的一些辅助类 bean 不要放入 bean 包中, bean 包中全部都是服务端业务需要的类, bean 中不要加入非必要(客户端不用)的字段</li>
+<li>使用图片和颜色状态来代替在代码中动态设置</li>
+<li>glide.with(xxx), 使用范围最小的参数 </li>
+<li>输入法统一使用 resize 的方式</li>
+<li>分模块. 例如充电模块, 有 N 多的功能就写在一个 Fragment 中, 要分成多个 Fragment</li>
+<li>emojicon 使用 EmojiconHandler 去处理 Emoji 表情, 不要直接使用 EmojiconEditText 和 EmojiconTextView</li>
+<li>使用 TabLayout, 不要使用 UnderlineTabPageIndicator</li>
+<li><a href="http://blog.csdn.net/theone10211024/article/details/50435325" target="_blank" rel="external">Rxjava 使用场景</a></li>
+<li><p>recyclerview 不要用隐藏的方式, 要重写 getItemCount 方法</p>
+</li>
+<li><p>列表播放视频使用 <a href="https://github.com/danylovolokh/VideoPlayerManager" target="_blank" rel="external">VideoPlayerManager</a></p>
+</li>
+</ul>
+<h1 id="框架讲解"><a href="#框架讲解" class="headerlink" title="框架讲解"></a>框架讲解</h1><h1 id="资源命名规则"><a href="#资源命名规则" class="headerlink" title="资源命名规则"></a>资源命名规则</h1><ul>
+<li>&lt;类型…&gt;_&lt;限定词…&gt;, 在能表达意思的基础上, 越短越好</li>
+<li><p>资源文件名只能使用小写字母数字下划线(a-z0-9_), 且只能以小写字母开头</p>
+</li>
+<li><p>layout|menu 命名</p>
+<ol>
+<li>Fragment 的 onCreateContentView 中的 layout 命名: content<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+<li>Fragment 的 onViewCreating 中的 layout 命名: fragment<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+<li>Activity 的 layout 命名: activity<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+<li>Adapter 的 layout 命名: item<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+<li>Dialog 的 layout 命名: dialog<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+</ol>
+</li>
+<li>drawable 命名<ol>
+<li>图标: ic<em>&lt;类型…&gt;</em>&lt;限定词…&gt;   例如: ic_toolbar_back_selector</li>
+<li>背景: bg<em>&lt;类型…&gt;</em>&lt;限定词…&gt;</li>
+</ol>
+</li>
+<li>color 命名</li>
+<li>value 命名<ol>
+<li>某个库用的 Value 单独给放入一个文件中   例如: values_tab_page_indicator</li>
+</ol>
+</li>
+</ul>
+
       
     </div>
     
@@ -350,7 +413,7 @@ Fragment
         <p><span>本文标题:</span><a href="/2016/03/21/android-tech-share-meeting-2016-03-21/">分享会-2016-03-21</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 William Cheng 的个人博客">William Cheng</a></p>
         <p><span>发布时间:</span>2016年03月21日 - 11时03分</p>
-        <p><span>最后更新:</span>2016年03月24日 - 09时36分</p>
+        <p><span>最后更新:</span>2016年04月11日 - 15时36分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/03/21/android-tech-share-meeting-2016-03-21/" title="分享会-2016-03-21">http://csshuai.github.com/2016/03/21/android-tech-share-meeting-2016-03-21/</a>
             <span class="copy-path" data-clipboard-text="原文: http://csshuai.github.com/2016/03/21/android-tech-share-meeting-2016-03-21/　　作者: William Cheng" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -380,7 +443,7 @@ Fragment
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要推倒重来"><span class="toc-number">1.</span> <span class="toc-text">为什么要推倒重来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment"><span class="toc-number">2.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Eventbus"><span class="toc-number">3.</span> <span class="toc-text">Eventbus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Eventbus-缺陷"><span class="toc-number">3.1.</span> <span class="toc-text">Eventbus 缺陷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eventbus-能使用的地方"><span class="toc-number">3.2.</span> <span class="toc-text">Eventbus 能使用的地方</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StrictMode"><span class="toc-number">4.</span> <span class="toc-text">StrictMode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PausedHandler"><span class="toc-number">5.</span> <span class="toc-text">PausedHandler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RxJava"><span class="toc-number">6.</span> <span class="toc-text">RxJava</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Retrofit2"><span class="toc-number">7.</span> <span class="toc-text">Retrofit2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proguard-annotations"><span class="toc-number">8.</span> <span class="toc-text">proguard-annotations</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码规范-提交到-git-的代码必须符合以下要求"><span class="toc-number">9.</span> <span class="toc-text">代码规范(提交到 git 的代码必须符合以下要求)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他问题"><span class="toc-number">10.</span> <span class="toc-text">其他问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#框架讲解"><span class="toc-number">11.</span> <span class="toc-text">框架讲解</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要推倒重来"><span class="toc-number">1.</span> <span class="toc-text">为什么要推倒重来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fragment"><span class="toc-number">2.</span> <span class="toc-text">Fragment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Eventbus"><span class="toc-number">3.</span> <span class="toc-text">Eventbus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Eventbus-缺陷"><span class="toc-number">3.1.</span> <span class="toc-text">Eventbus 缺陷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Eventbus-能使用的地方"><span class="toc-number">3.2.</span> <span class="toc-text">Eventbus 能使用的地方</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#StrictMode"><span class="toc-number">4.</span> <span class="toc-text">StrictMode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PausedHandler"><span class="toc-number">5.</span> <span class="toc-text">PausedHandler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RxJava"><span class="toc-number">6.</span> <span class="toc-text">RxJava</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Retrofit2"><span class="toc-number">7.</span> <span class="toc-text">Retrofit2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proguard-annotations"><span class="toc-number">8.</span> <span class="toc-text">proguard-annotations</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码规范-提交到-git-的代码必须符合以下要求"><span class="toc-number">9.</span> <span class="toc-text">代码规范(提交到 git 的代码必须符合以下要求)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工作规范"><span class="toc-number">10.</span> <span class="toc-text">工作规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他问题"><span class="toc-number">11.</span> <span class="toc-text">其他问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新版本注意事项"><span class="toc-number">12.</span> <span class="toc-text">新版本注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#框架讲解"><span class="toc-number">13.</span> <span class="toc-text">框架讲解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#资源命名规则"><span class="toc-number">14.</span> <span class="toc-text">资源命名规则</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
